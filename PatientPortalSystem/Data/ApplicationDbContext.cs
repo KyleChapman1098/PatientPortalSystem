@@ -10,6 +10,7 @@ namespace PatientPortalSystem.Data
 
 		}
 
+		public DbSet<User> DefaultUsers { get; set; }	
 
 	}
 }
