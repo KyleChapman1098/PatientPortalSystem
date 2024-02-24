@@ -39,9 +39,10 @@ namespace PatientPortalSystem.Controllers
             {
                 db.DefaultUser.Add(obj);
                 db.SaveChanges();
-
-                return RedirectToAction("Index");
+				TempData["Success"] = "Account registered successfully";
+				return RedirectToAction("Index");
             }
+            TempData["Error"] = "Account creation failed";
             return View();
         }
     }
