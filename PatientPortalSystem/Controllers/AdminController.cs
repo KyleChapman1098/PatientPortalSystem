@@ -39,7 +39,16 @@ namespace PatientPortalSystem.Controllers
             {
                 db.DefaultUser.Add(obj);
                 db.SaveChanges();
-				TempData["Success"] = "Account registered successfully";
+
+                var user = db.DefaultUser.FirstOrDefault(x => x.Id == obj.Id);
+
+                Staff newStaff = new Staff();
+                newStaff.Id = user.Id;
+
+                db.Add(newStaff);
+                db.SaveChanges();
+
+                TempData["Success"] = "Account registered successfully";
 				return RedirectToAction("Index");
             }
             TempData["Error"] = "Account creation failed";

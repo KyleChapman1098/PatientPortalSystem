@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PatientPortalSystem.Data;
 using PatientPortalSystem.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace PatientPortalSystem.Controllers
 {
@@ -61,11 +62,21 @@ namespace PatientPortalSystem.Controllers
                 }
                 if(user.Role == "Patient")
                 {
-                    return RedirectToAction("Index", "Patient");
+                    HttpContext.Session.SetString("IsVerified", "true");
+                    HttpContext.Session.SetInt32("UserId", user.Id);
+                    
+                    return RedirectToAction("Index", "Patient", user);
                 }
             }
             TempData["Error"] = "Login failed";
             return View();
+        }
+
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Clear();
+            TempData["Success"] = "Logout Successful";
+            return RedirectToAction("Index", "Home");
         }
     }
 }
