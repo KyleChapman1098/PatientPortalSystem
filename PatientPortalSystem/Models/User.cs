@@ -21,6 +21,7 @@ namespace PatientPortalSystem.Models
 		public string Username {  get; set; }
 
 		[DataType(DataType.Password)]
+		
 		public string Password { get; set; }
 
 		public string Address {  get; set; }
@@ -29,6 +30,7 @@ namespace PatientPortalSystem.Models
 		public string Email { get; set; }
 
 		[DisplayName("Phone Number")]
+		[DataType(DataType.PhoneNumber)]
 		public string Phone { get; set; }
 
 		[DisplayName("Date Registered")]

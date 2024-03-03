@@ -18,7 +18,7 @@ namespace PatientPortalSystem.Data
 
 		public DbSet<Insurance> Insurance { get; set; }
 
-		public DbSet<InternalMessaging> InternalMessaging { get; set; }
+		public DbSet<InternalMessage> InternalMessaging { get; set; }
 
 		public DbSet<Lab> Lab { get; set; }
 

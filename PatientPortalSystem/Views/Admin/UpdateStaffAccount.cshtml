@@ -59,7 +59,12 @@
             </div>
             <div class="form-group">
                 <label asp-for="Role" class="control-label"></label>
-                <input asp-for="Role" class="form-control" />
+                <select asp-for="Role" class="form-control">
+                    <option>Billing</option>
+                    <option>Doctor</option>
+                    <option>Nurse</option>
+                    <option>Receptionist</option>
+                </select>
                 <span asp-validation-for="Role" class="text-danger"></span>
             </div>
             <br />
