@@ -58,6 +58,7 @@ namespace PatientPortalSystem.Controllers
                 
                 if(user.Role == "Admin")
                 {
+                    HttpContext.Session.SetString("IsAdmin", "true");
                     return RedirectToAction("Index", "Admin");
                 }
                 if(user.Role == "Patient")
