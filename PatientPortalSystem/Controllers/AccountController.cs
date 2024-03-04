@@ -75,6 +75,21 @@ namespace PatientPortalSystem.Controllers
 
                     return RedirectToAction("Index", "Doctor");
                 }
+                if(user.Role == "Nurse")
+                {
+                    HttpContext.Session.SetString("IsNurse", "true");
+                    HttpContext.Session.SetInt32("UserId", user.Id);
+
+                    return RedirectToAction("Index", "Nurse");
+                }
+                if (user.Role == "Receptionist")
+                {
+                    HttpContext.Session.SetString("IsReceptionist", "true");
+                    HttpContext.Session.SetInt32("UserId", user.Id);
+
+                    return RedirectToAction("Index", "Receptionist");
+                }
+
             }
             TempData["Error"] = "Login failed";
             return View();
