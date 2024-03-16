@@ -1,8 +1,56 @@
-﻿
+@model IEnumerable<User>
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Nurse Dashboard";
     Layout = "~/Views/Shared/_NurseLayout.cshtml";
 }
 
-<h1>Hello Nurse</h1>
+<h1>Nurse Dashboard</h1>
 
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h2 class="text-primary">Patient List</h2>
+        </div>
+        <div class="col-6 text-end">
+            <a asp-controller="Nurse" asp-action="AccessPatientFile" class="btn btn-primary">
+                <i class="bi bi-plus-circle-dotted"></i> Access Files
+            </a>
+        </div>
+    </div>
+</div>
+<br />  
+
+<table class="table table-bordered table-striped" style="width:100%">
+    <thead>
+        <tr>
+            <th>
+                First Name
+            </th>
+            <th>
+                Last Name
+            </th>
+            <th>
+                Actions
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var patient in Model)
+        {
+            <tr>
+                <td width="20%">
+                    @patient.FirstName
+                </td>
+                <td width="20%">
+                    @patient.LastName
+                </td>
+                <td width="20%">
+                    <div class="w-75 btn-group" role="group">
+                        <a asp-controller="Nurse" asp-action="GenerateAppointmentNotes" asp-route-id="@patient.Id"
+                        class="btn btn-primary mx-2"> <i class="bi bi-eye"></i> Generate Appointment Notes</a>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
