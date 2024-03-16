@@ -32,7 +32,7 @@ namespace PatientPortalSystem.Controllers
             }
 
             // Retrieve patient details from the database
-            var patient = _db.Patient.FirstOrDefault(p => p.patientID== patientId);
+            var patient = _db.Patient.FirstOrDefault(p => p.Id== patientId);
             if (patient == null)
             {
                 TempData["Error"] = "Patient not found";
