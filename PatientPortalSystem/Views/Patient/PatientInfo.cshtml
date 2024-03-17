@@ -1,0 +1,312 @@
+﻿@model PatientPortalSystem.Models.ViewModels.PatientViewModel
+
+@{
+    ViewData["Title"] = "PatientInfo";
+    Layout = "~/Views/Shared/_PatientLayout.cshtml";
+}
+
+<h1>Patient Info</h1>
+
+
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h2 class="text-primary">Account Details</h2>
+        </div>
+        <div class="col-6 text-center">
+            <a asp-controller="Patient" asp-action="UpdateAccount" class="btn btn-secondary">Update</a>
+        </div>
+        <div class="col-6 text-end">
+
+        </div>
+    </div>
+</div>
+
+<table class="table table-bordered table-striped" style="width:80%">
+    <tbody>
+         <tr>
+             <td width="50%">
+                @Html.DisplayNameFor(model => model.FirstName)
+             </td>
+             <td width="50%">
+                @Html.DisplayFor(model => model.FirstName)
+             </td>
+         </tr>
+         <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.LastName)
+            </td>
+         </tr>
+         <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.Username)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.Username)
+            </td>
+         </tr>
+         <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.Email)
+            </td>
+         </tr>
+         <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.Phone)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.Phone)
+            </td>
+         </tr>
+         <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.Address)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.Address)
+            </td>
+         </tr>
+         <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.DOB)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.DOB)
+            </td>
+         </tr>
+         <tr>
+             <td>
+                @Html.DisplayNameFor(model => model.SSN)
+             </td>
+             <td>
+                @Html.DisplayFor(model => model.SSN)
+             </td>
+         </tr>
+         <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.DateRegistered)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.DateRegistered)
+            </td>
+         </tr>
+    </tbody>
+</table>
+
+
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h2 class="text-primary">Emergency Contact</h2>
+        </div>
+        <div class="col-6 text-center">
+            <a asp-controller="Patient" asp-action="UpdateContact" asp-route-id="@Model.PatientId" class="btn btn-secondary">Update</a>
+        </div>
+        <div class="col-6 text-end">
+        </div>
+    </div>
+</div>
+
+<table class="table table-bordered table-striped" style="width:80%">
+    <tbody>
+        <tr>
+            <td width="50%">
+                @Html.DisplayNameFor(model => model.EmergencyContactFirstName)
+            </td>
+            <td width="50%">
+                @Html.DisplayFor(model => model.EmergencyContactFirstName)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.EmergencyContactLastName)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.EmergencyContactLastName)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.EmergencyContactPhone)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.EmergencyContactPhone)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.EmergencyContactAddress)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.EmergencyContactAddress)
+            </td>
+        </tr>
+    </tbody>
+</table>
+ 
+
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h2 class="text-primary">Current Doctor</h2>
+        </div>
+        <div class="col-6 text-center">
+            <a asp-controller="Patient" asp-action="SelectDoctor" class="btn btn-secondary">Change</a>
+        </div>
+        <div class="col-6 text-end">
+        </div>
+    </div>
+</div>
+
+<table class="table table-bordered table-striped" style="width:80%">
+    <tbody>
+        <tr>
+            <td width="50%">
+                @Html.DisplayNameFor(model => model.PhysicianName)
+            </td>
+            <td width="50%">
+                @Html.DisplayFor(model => model.PhysicianName)
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h2 class="text-primary">Medical History</h2>
+        </div>
+        <div class="col-6 text-center">
+            <a asp-controller="Patient" asp-action="UpdateMedHistory" asp-route-id="@Model.PatientId" class="btn btn-secondary">Update</a>
+        </div>
+        <div class="col-6 text-end">
+        </div>
+    </div>
+</div>
+
+<table class="table table-bordered table-striped" style="width:80%">
+    <tbody>
+        <tr>
+            <td width="50%">
+                @Html.DisplayNameFor(model => model.Allergies)
+            </td>
+            <td width="50%">
+                @Html.DisplayFor(model => model.Allergies)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.Medications)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.Medications)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.Conditions)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.Conditions)
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h2 class="text-primary">Insurance</h2>
+        </div>
+        <div class="col-6 text-center">
+            @if(Model.ProviderName == null)
+            {
+                <a asp-controller="Patient" asp-action="AddInsurance" class="btn btn-secondary">Add</a>
+            }
+            else
+            {
+                <a asp-controller="Patient" asp-action="UpdateInsurance" asp-route-InsuranceId="@Model.InsuranceId" class="btn btn-secondary">Update</a>
+            }
+        </div>
+        <div class="col-6 text-end">
+        </div>
+    </div>
+</div>
+
+<table class="table table-bordered table-striped" style="width:80%">
+    <tbody>
+        <tr>
+            <td width="50%">
+                @Html.DisplayNameFor(model => model.ProviderName)
+            </td>
+            <td width="50%">
+                @Html.DisplayFor(model => model.ProviderName)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.PolicyNumber)
+            </td>
+            <td>
+                @if(Model.ProviderName == null)
+                {
+                    
+                }
+                else
+                {
+                    @Html.DisplayFor(model => model.PolicyNumber)
+                }
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h2 class="text-primary">Appointment Reminders</h2>
+        </div>
+        <div class="col-6 text-center">
+            @if(Model.SendReminders == true)
+            {
+                <a asp-controller="Patient" asp-action="ToggleReminders" asp-route-id="@Model.PatientId" class="btn btn-secondary">Turn Off</a>
+            }
+            else
+            {
+                <a asp-controller="Patient" asp-action="ToggleReminders" asp-route-id="@Model.PatientId" class="btn btn-secondary">Turn On</a>
+            }
+        </div>
+        <div class="col-6 text-end">
+        </div>
+    </div>
+</div>
+
+<table class="table table-bordered table-striped" style="width:80%">
+    <tbody>
+        <tr>
+            <td width="50%">
+                @Html.DisplayNameFor(model => model.SendReminders)
+            </td>
+            <td width="50%">
+                    @if(Model.SendReminders == true)
+                    {
+                        <p>On</p>
+                    }
+                    else
+                    {
+                        <p>Off</p>
+                    }
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+

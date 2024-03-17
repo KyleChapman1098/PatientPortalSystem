@@ -20,7 +20,8 @@ namespace PatientPortalSystem.Controllers
                 TempData["Error"] = "You must be logged in as a nurse to view this page";
                 return RedirectToAction("Login", "Account");
             }
-            return View();
+            IEnumerable<User> patients = _db.DefaultUser.Where(x => x.Role == "Patient");
+            return View(patients);
         }
 
         public IActionResult AccessPatientFile(int patientId)
@@ -32,7 +33,7 @@ namespace PatientPortalSystem.Controllers
             }
 
             // Retrieve patient details from the database
-            var patient = _db.Patient.FirstOrDefault(p => p.Id== patientId);
+            var patient = _db.Patient.FirstOrDefault(p => p.PatientId == patientId);
             if (patient == null)
             {
                 TempData["Error"] = "Patient not found";

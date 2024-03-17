@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PatientPortalSystem.Models;
+using PatientPortalSystem.Models.ViewModels;
 
 namespace PatientPortalSystem.Data
 {
@@ -31,6 +32,7 @@ namespace PatientPortalSystem.Data
 		public DbSet<Prescription> Prescription { get; set; }
 
 		public DbSet<Staff> Staff { get; set; }
+	    public DbSet<PatientPortalSystem.Models.ViewModels.PatientViewModel> PatientViewModel { get; set; } = default!;
 		
 
 	}

@@ -8,12 +8,10 @@ namespace PatientPortalSystem.Models
         [Key]
         public int InsuranceId { get; set; }
 
+        public int Id { get; set; }
+
         public string ProviderName { get; set; }
 
-        public int PolicyNumber { get; set; }
-
-        public string CoverageDetails { get; set; }
-
-        public float CopayAmount { get; set; }
+        public string PolicyNumber { get; set; }
     }
 }
