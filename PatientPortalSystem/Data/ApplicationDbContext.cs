@@ -15,7 +15,13 @@ namespace PatientPortalSystem.Data
 		
 		public DbSet<Appointment> Appointment { get; set; }
 
+		public DbSet<AppointmentNote> AppointmentNote { get; set; }
+
+		public DbSet<Request> Request { get; set; }
+
 		public DbSet<Bill> Bill { get; set; }
+
+		public DbSet<HIPAA> HIPAA { get; set; }
 
 		public DbSet<Insurance> Insurance { get; set; }
 
@@ -25,6 +31,8 @@ namespace PatientPortalSystem.Data
 
 		public DbSet<LabResult> LabResult { get; set; }
 
+		public DbSet<MedicalRecord> MedicalRecord { get; set; }
+
 		public DbSet<Patient> Patient { get; set; }
 
 		public DbSet<Pharmacy> Pharmacy { get; set;}
@@ -32,8 +40,6 @@ namespace PatientPortalSystem.Data
 		public DbSet<Prescription> Prescription { get; set; }
 
 		public DbSet<Staff> Staff { get; set; }
-	    public DbSet<PatientPortalSystem.Models.ViewModels.PatientViewModel> PatientViewModel { get; set; } = default!;
-		
-
+	    public DbSet<PatientPortalSystem.Models.ViewModels.AppointmentViewModel> AppointmentViewModel { get; set; } = default!;
 	}
 }

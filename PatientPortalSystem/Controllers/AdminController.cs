@@ -17,7 +17,7 @@ namespace PatientPortalSystem.Controllers
             if(HttpContext.Session.GetString("IsAdmin") != "true")
             {
                 TempData["Error"] = "You must be an admin to access this page";
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Login", "Account");
             }
             IEnumerable<User> objUserList = db.DefaultUser;
             return View(objUserList);
@@ -28,7 +28,7 @@ namespace PatientPortalSystem.Controllers
             if (HttpContext.Session.GetString("IsAdmin") != "true")
             {
                 TempData["Error"] = "You must be an admin to access this page";
-                return RedirectToAction("Account", "Login");
+                return RedirectToAction("Login", "Account");
             }
             return View();
         }
@@ -60,7 +60,13 @@ namespace PatientPortalSystem.Controllers
 
         public IActionResult UpdateStaffAccount(int? id)
         {
-            if(id == null || id == 0)
+            if (HttpContext.Session.GetString("IsAdmin") != "true")
+            {
+                TempData["Error"] = "You must be an admin to access this page";
+                return RedirectToAction("Login", "Account");
+            }
+
+            if (id == null || id == 0)
             {
                 return NotFound();
             }

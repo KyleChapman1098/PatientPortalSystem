@@ -1,0 +1,67 @@
+﻿@model PatientPortalSystem.Models.Request
+
+@{
+    ViewData["Title"] = "CreateRequest";
+    Layout = "~/Views/Shared/_PatientLayout.cshtml";
+}
+
+<h1>New Request</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="CreateRequest">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <input type="hidden" asp-for="PatientId" class="form-control" />
+                <span asp-validation-for="PatientId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="hidden" asp-for="DoctorId" class="form-control" />
+                <span asp-validation-for="DoctorId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="hidden" asp-for="DoctorName" class="form-control" />
+                <span asp-validation-for="DoctorName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="hidden" asp-for="PatientUsername" class="form-control" />
+                <span asp-validation-for="PatientUsername" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="hidden" asp-for="PatientName" class="form-control" />
+                <span asp-validation-for="PatientName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="hidden" asp-for="PatientPhone" class="form-control" />
+                <span asp-validation-for="PatientPhone" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RequestType" class="control-label"></label>
+                <select asp-for="RequestType" class="form-control">
+                    <option>New Appointment</option>
+                    <option>Reschedule Appointment</option>
+                    <option>Cancel Appointment</option>
+                </select>
+                <span asp-validation-for="RequestType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Message" class="control-label"></label>
+                <textarea asp-for="Message" class="form-control" placeholder="Please include all relevant info(preferred days, reason for appointment, existing appointment date, etc.) "></textarea>
+                <span asp-validation-for="Message" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="hidden" asp-for="MessageTime" class="form-control" />
+                <span asp-validation-for="MessageTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Appointments">Back to Appointments</a>
+</div>
+

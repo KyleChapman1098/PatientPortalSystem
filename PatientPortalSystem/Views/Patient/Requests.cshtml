@@ -1,0 +1,52 @@
+﻿@model IEnumerable<Request>
+
+@{
+    ViewData["Title"] = "Requests";
+    Layout = "~/Views/Shared/_PatientLayout.cshtml";
+}
+
+<h1>Requests</h1>
+
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h2 class="text-primary">Open Requests</h2>
+        </div>
+        <div class="col-6 text-end">
+            <a asp-controller="Patient" asp-action="Appointments" class="btn btn-secondary">Back to Appointments</a>
+            <a asp-controller="Patient" asp-action="CreateRequest" class="btn btn-primary">New Request</a>
+        </div>
+    </div>
+</div>
+
+<table class="table table-bordered table-striped" style="width:100%">
+    <thead>
+        <tr>
+            <th>
+                Request Type
+            </th>
+            <th>
+                Sent
+            </th>
+            <th>
+                Message
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var obj in Model)
+        {
+            <tr>
+                <td width="">
+                    @obj.RequestType
+                </td>
+                <td width="">
+                    @obj.MessageTime
+                </td>
+                <td>
+                    @obj.Message
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

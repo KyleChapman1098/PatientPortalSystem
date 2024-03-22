@@ -1,0 +1,103 @@
+﻿@model IEnumerable<Appointment>
+
+@{
+    ViewData["Title"] = "Appointments";
+    Layout = "~/Views/Shared/_PatientLayout.cshtml";
+}
+
+<h1>Appointments</h1>
+
+
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h2 class="text-primary">Upcoming Appointments</h2>
+        </div>
+        <div class="col-6 text-center">
+            <a asp-controller="Patient" asp-action="Requests" class="btn btn-secondary">Requests</a>
+        </div>
+    </div>
+</div>
+
+<table class="table table-bordered table-striped" style="width:100%">
+    <thead>
+        <tr>
+            <th>
+                Date
+            </th>
+            <th>
+                Time
+            </th>
+            <th>
+                Reason
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var obj in Model)
+        {
+            @if (DateOnly.FromDateTime(obj.AppointmentDate).CompareTo(DateOnly.FromDateTime(DateTime.Now)) >= 0)
+            {
+                <tr>
+                    <td width="20%">
+                        @DateOnly.FromDateTime(obj.AppointmentDate)
+                    </td>
+                    <td width="20%">
+                        @TimeOnly.FromDateTime(obj.AppointmentDate)
+                    </td>
+                    <td width="20%">
+                        @obj.Reason
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h2 class="text-primary">Past Appointments</h2>
+        </div>
+        <div class="col-6 text-center">
+       
+        </div>
+    </div>
+</div>
+
+<table class="table table-bordered table-striped" style="width:100%">
+    <thead>
+        <tr>
+            <th>
+                Date
+            </th>
+            <th>
+                Time
+            </th>
+            <th>
+                Reason
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var obj in Model)
+        {
+            @if(DateOnly.FromDateTime(obj.AppointmentDate).CompareTo(DateOnly.FromDateTime(DateTime.Now)) < 0)
+            {
+                <tr>
+                    <td width="20%">
+                        @DateOnly.FromDateTime(obj.AppointmentDate)
+                    </td>
+                    <td width="20%">
+                        @TimeOnly.FromDateTime(obj.AppointmentDate)
+                    </td>
+                    <td width="20%">
+                        @obj.Reason
+                    </td>
+                </tr>
+            }
+        
+        }
+    </tbody>
+</table>
+

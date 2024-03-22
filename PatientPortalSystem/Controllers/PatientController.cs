@@ -18,7 +18,7 @@ namespace PatientPortalSystem.Controllers
             db = context;
         }
 
-        public IActionResult Index()
+        public IActionResult Index() //Handles when someone logs in as a patient, checking whether they have a patient record in the patient table. If the record does not exist, user is sent to the patient intake process
         {
             if(HttpContext.Session.GetString("IsVerified") != "true")
             {
@@ -63,7 +63,7 @@ namespace PatientPortalSystem.Controllers
         }
 
         [HttpPost]
-        public IActionResult PatientIntake(Patient obj)
+        public IActionResult PatientIntake(Patient obj) //Ensures users have filled out all intake information and places information in the database
         {
             obj.Id = (int)HttpContext.Session.GetInt32("UserId");
             if (ModelState.IsValid)
@@ -75,7 +75,7 @@ namespace PatientPortalSystem.Controllers
             return View(obj);
         }
         
-        public IActionResult UpdateAccount()
+        public IActionResult UpdateAccount() //Takes user to a page where they can update their account info (username, email, etc.)
         {
             if (HttpContext.Session.GetString("IsVerified") != "true")
             {
@@ -90,7 +90,7 @@ namespace PatientPortalSystem.Controllers
         }
 
         [HttpPost]
-        public IActionResult UpdateAccount(User obj)
+        public IActionResult UpdateAccount(User obj) //Ensures updated user information is not duplicate in the database and updates their entry in the defaultuser table
         {
             if (db.DefaultUser.Any(x => x.Username == obj.Username && x.Id != obj.Id))
             {
@@ -113,7 +113,7 @@ namespace PatientPortalSystem.Controllers
             return View();
         }
 
-        public IActionResult Messenger()
+        public IActionResult Messenger() //Takes user to their inbox/outbox of internal messages
         {
             if (HttpContext.Session.GetString("IsVerified") != "true")
             {
@@ -126,7 +126,7 @@ namespace PatientPortalSystem.Controllers
             return View(messageList);
         }
 
-        public IActionResult SendMessage()
+        public IActionResult SendMessage() //Takes user to a page where they can create an internal message using emails on file in the database
         {
             if (HttpContext.Session.GetString("IsVerified") != "true")
             {
@@ -138,7 +138,7 @@ namespace PatientPortalSystem.Controllers
         }
 
         [HttpPost]
-        public IActionResult SendMessage(InternalMessage obj)
+        public IActionResult SendMessage(InternalMessage obj) //Checks thats user created message is going to a valid email and is filled out before creating message entry in database
         {
             ModelState.Clear();
             if(db.DefaultUser.Any(x => x.Email == obj.ReceiverEmail))
@@ -178,7 +178,7 @@ namespace PatientPortalSystem.Controllers
             return View();
         }
 
-        public IActionResult ReadMessage(int? id)
+        public IActionResult ReadMessage(int? id) //Allows user to open messages in their inbox
         {
             if (HttpContext.Session.GetString("IsVerified") != "true")
             {
@@ -195,7 +195,7 @@ namespace PatientPortalSystem.Controllers
             return View(message);
         }
 
-        public IActionResult ReadSentMessage(int? id)
+        public IActionResult ReadSentMessage(int? id) //Allows user to open messages they sent previously
         {
             if (HttpContext.Session.GetString("IsVerified") != "true")
             {
@@ -212,7 +212,7 @@ namespace PatientPortalSystem.Controllers
             return View(message);
         }
 
-        public IActionResult DeleteMessage(int? id)
+        public IActionResult DeleteMessage(int? id) //Deletes message entry from the database
         {
             if (HttpContext.Session.GetString("IsVerified") != "true")
             {
@@ -232,7 +232,7 @@ namespace PatientPortalSystem.Controllers
             return RedirectToAction("Messenger");
         }
 
-        public IActionResult PatientInfo()
+        public IActionResult PatientInfo() //Takes user to page which displays all their current account/medical info on file
         {
             if (HttpContext.Session.GetString("IsVerified") != "true") //Check that user is logged in as a patient
             {
@@ -250,7 +250,7 @@ namespace PatientPortalSystem.Controllers
             var insurance = db.Insurance.FirstOrDefault(x => x.Id == HttpContext.Session.GetInt32("UserId"));
             var doctor = db.DefaultUser.Find(patient.PhysicianId);
 
-            PatientViewModel viewModel = new PatientViewModel
+            PatientViewModel viewModel = new PatientViewModel //Patient ViewModel object is just an object which holds all information from User, Patient, and Insurance so all three tables can be updated and pulled from on the same page
             {
                 //User Attributes
                 Id = user.Id,
@@ -293,7 +293,7 @@ namespace PatientPortalSystem.Controllers
             return View(viewModel);
         }
 
-        public IActionResult UpdateContact(int? id)
+        public IActionResult UpdateContact(int? id) //Allows user to update their emergency contact info
         {
             if (HttpContext.Session.GetString("IsVerified") != "true")
             {
@@ -306,7 +306,7 @@ namespace PatientPortalSystem.Controllers
         }
 
         [HttpPost]
-        public IActionResult UpdateContact(Patient obj)
+        public IActionResult UpdateContact(Patient obj) //Checks that newly entered emergency contact info is valid before updating the entry in the database
         {
             if (ModelState.IsValid)
             {
@@ -322,7 +322,7 @@ namespace PatientPortalSystem.Controllers
             return View(obj);
         }
 
-        public IActionResult UpdateMedHistory(int? id)
+        public IActionResult UpdateMedHistory(int? id) //Allows user to update their medical history info
         {
             if (HttpContext.Session.GetString("IsVerified") != "true")
             {
@@ -335,7 +335,7 @@ namespace PatientPortalSystem.Controllers
         }
 
         [HttpPost]
-        public IActionResult UpdateMedHistory(Patient obj)
+        public IActionResult UpdateMedHistory(Patient obj) //Checks that newly entered medical history info is valid before updating the database
         {
             if (ModelState.IsValid)
             {
@@ -351,7 +351,7 @@ namespace PatientPortalSystem.Controllers
             return View(obj);
         }
 
-        public IActionResult AddInsurance()
+        public IActionResult AddInsurance() //Allows user to enter their insurance provider and policy number
         {
             if (HttpContext.Session.GetString("IsVerified") != "true")
             {
@@ -363,7 +363,7 @@ namespace PatientPortalSystem.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddInsurance(Insurance obj)
+        public IActionResult AddInsurance(Insurance obj) //Checks that insurance info is complete before creating new entry in insurance table in the database
         {
             ModelState.Clear();
             if(obj.ProviderName == null)
@@ -388,7 +388,7 @@ namespace PatientPortalSystem.Controllers
             return View(obj);
         }
 
-        public IActionResult UpdateInsurance(int? InsuranceId)
+        public IActionResult UpdateInsurance(int? InsuranceId) //Allows user to update previously entered insurance information
         {
             if (HttpContext.Session.GetString("IsVerified") != "true")
             {
@@ -401,7 +401,7 @@ namespace PatientPortalSystem.Controllers
         }
 
         [HttpPost]
-        public IActionResult UpdateInsurance(Insurance obj)
+        public IActionResult UpdateInsurance(Insurance obj) //Checks that updated insurance info is complete before updating the database
         {
             if(ModelState.IsValid)
             {
@@ -446,7 +446,76 @@ namespace PatientPortalSystem.Controllers
             }
             
         }
-        
+
+        public IActionResult Appointments()
+        {
+            if (HttpContext.Session.GetString("IsVerified") != "true")
+            {
+                TempData["Error"] = "You must be logged in to view this page";
+                return RedirectToAction("Login", "Account");
+            }
+
+            var patient = db.Patient.FirstOrDefault(x => x.Id == HttpContext.Session.GetInt32("UserId"));
+            IEnumerable<Appointment> appointments = db.Appointment.Where(x => x.PatientId == patient.PatientId);
+            
+            return View(appointments);
+        }
+
+        public IActionResult Requests()
+        {
+            if (HttpContext.Session.GetString("IsVerified") != "true")
+            {
+                TempData["Error"] = "You must be logged in to view this page";
+                return RedirectToAction("Login", "Account");
+            }
+
+            var patient = db.Patient.FirstOrDefault(x => x.Id == HttpContext.Session.GetInt32("UserId"));
+            var requests = db.Request.Where(x => x.PatientId == patient.PatientId);
+
+            return View(requests);
+        }
+
+        public IActionResult CreateRequest()
+        {
+            if (HttpContext.Session.GetString("IsVerified") != "true")
+            {
+                TempData["Error"] = "You must be logged in to view this page";
+                return RedirectToAction("Login", "Account");
+            }
+
+            var user = db.DefaultUser.Find(HttpContext.Session.GetInt32("UserId"));
+            var patient = db.Patient.FirstOrDefault(x=> x.Id == HttpContext.Session.GetInt32("UserId"));
+            var doctor = db.DefaultUser.Find(patient.PhysicianId);
+
+            Request request = new Request
+            {
+                PatientId = patient.PatientId,
+                DoctorId = doctor.Id,
+                PatientUsername = user.Username,
+                PatientName = user.FirstName + " " + user.LastName,
+                DoctorName = doctor.FirstName + " " + doctor.LastName,
+                PatientPhone = user.Phone,
+            };
+
+            return View(request);
+        }
+
+        [HttpPost]
+        public IActionResult CreateRequest(Request obj)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Request.Add(obj);
+                db.SaveChanges();
+
+                TempData["Success"] = "Request Sent";
+                return RedirectToAction("Requests");
+            }
+            
+            return View(obj);
+            
+        }
+
         
     }
 }
