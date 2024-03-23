@@ -20,7 +20,7 @@ namespace PatientPortalSystem.Controllers
         }
 
         [HttpPost]
-        public IActionResult Register(User obj) //Receives the user input in the form of the User obj, checks for duplicate users and adds them to the db
+        public IActionResult Register(User obj) //Receives the user input in the form of the User obj, checks that the user is not a duplicate and adds the new user to the db
         {
             if (db.DefaultUser.Any(x => x.Username == obj.Username))
             {
@@ -50,11 +50,11 @@ namespace PatientPortalSystem.Controllers
         }
 
         [HttpPost]
-        public IActionResult Login(User obj) //Receives the login info the user inputs and checks if it exists. If so it directs them to the controller corresponding to their role
+        public IActionResult Login(User obj) //Receives the login info the user inputs and checks that the user exists. If so it directs them to the controller corresponding to their role
         {
-            if (db.DefaultUser.Any(x => x.Username == obj.Username && x.Password == obj.Password))
+            var user = db.DefaultUser.FirstOrDefault(x => x.Username == obj.Username && x.Password.Equals(obj.Password, StringComparison.Ordinal));
+            if (user != null)
             {
-                var user = db.DefaultUser.FirstOrDefault(x => x.Username == obj.Username);
                 HttpContext.Session.SetInt32("UserId", user.Id);
                 
                 if(user.Role == "Admin")
@@ -72,7 +72,7 @@ namespace PatientPortalSystem.Controllers
                 {
                     HttpContext.Session.SetString("IsDoctor", "true");
 
-                    return RedirectToAction("Index", "Doctor");
+                    return RedirectToAction("Dashboard", "Doctor");
                 }
                 if(user.Role == "Nurse")
                 {

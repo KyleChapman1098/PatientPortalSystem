@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PatientPortalSystem.Data;
 using PatientPortalSystem.Models;
+using PatientPortalSystem.Models.ViewModels;
 
 namespace PatientPortalSystem.Controllers
 {
@@ -23,6 +24,123 @@ namespace PatientPortalSystem.Controllers
 			}
 			return View();
         }
+
+		public IActionResult Dashboard()
+		{
+            if (HttpContext.Session.GetString("IsDoctor") != "true")
+            {
+                TempData["Error"] = "You must be logged in to view this page";
+                return RedirectToAction("Login", "Account");
+            }
+			IEnumerable<Appointment> appointments = db.Appointment.Where(x => DateOnly.FromDateTime(x.AppointmentDate) == DateOnly.FromDateTime(DateTime.Now) && x.DoctorId == HttpContext.Session.GetInt32("UserId"));
+			var orderedAppointments = appointments.OrderBy(x => x.AppointmentDate);
+            return View(orderedAppointments);
+        }
+
+		public IActionResult ViewAppointment(int? id)
+		{
+            if (HttpContext.Session.GetString("IsDoctor") != "true")
+            {
+                TempData["Error"] = "You must be logged in to view this page";
+                return RedirectToAction("Login", "Account");
+            }
+			var appointment = db.Appointment.Find(id);
+			var appointmentNote = db.AppointmentNote.FirstOrDefault(x => x.AppointmentId == id);
+			var medicalRecord = db.MedicalRecord.FirstOrDefault(x => x.AppointmentId == id);
+
+			MedicalStaffAppointmentViewModel doctorView = new MedicalStaffAppointmentViewModel
+			{
+				//Appointment
+				AppointmentId = appointment.AppointmentId,
+				PatientId = appointment.PatientId,
+				DoctorId = appointment.DoctorId,
+				SchedulerId = appointment.SchedulerId,
+				PatientName = appointment.PatientName,
+				SchedulerName = appointment.SchedulerName,
+				DoctorName = appointment.DoctorName,
+				AppointmentDate = appointment.AppointmentDate,
+				Reason = appointment.Reason,
+			};
+
+			if(appointmentNote != null)
+			{
+				doctorView.AppointmentNoteId = appointmentNote.AppointmentNoteId;
+				doctorView.DateInfo = appointmentNote.DateInfo;
+				doctorView.Age = appointmentNote.Age;
+				doctorView.Weight = appointmentNote.Weight;
+				doctorView.Height = appointmentNote.Height;
+				doctorView.BloodPressure = appointmentNote.BloodPressure;
+				doctorView.Oxygen = appointmentNote.Oxygen;
+				doctorView.HeartRate = appointmentNote.HeartRate;
+				doctorView.NurseComments = appointmentNote.NurseComments;
+			}
+
+			if(medicalRecord != null)
+			{
+				doctorView.RecordId = medicalRecord.RecordId;
+				doctorView.DoctorDiagnosis = medicalRecord.DoctorDiagnosis;
+				doctorView.DoctorComments = medicalRecord.DoctorComments;
+			}
+
+			return View(doctorView);
+        }
+
+		public IActionResult CreateMedicalRecord(int? appointmentId)
+		{
+            if (HttpContext.Session.GetString("IsDoctor") != "true")
+            {
+                TempData["Error"] = "You must be logged in to view this page";
+                return RedirectToAction("Login", "Account");
+            }
+			var appointment = db.Appointment.Find(appointmentId);
+
+			MedicalRecord medicalRecord = new MedicalRecord
+			{
+				PatientId = appointment.PatientId,
+				AppointmentId = appointment.AppointmentId,
+			};
+
+			return View(medicalRecord);
+        }
+
+		[HttpPost]
+		public IActionResult CreateMedicalRecord(MedicalRecord obj)
+		{
+			if (ModelState.IsValid)
+			{
+				db.MedicalRecord.Add(obj);
+				db.SaveChanges();
+
+				TempData["Success"] = "Medical Record Added";
+				return RedirectToAction("ViewAppointment", new { id = obj.AppointmentId });
+			}
+			return View(obj);
+		}
+
+		public IActionResult EditMedicalRecord(int? id)
+		{
+            if (HttpContext.Session.GetString("IsDoctor") != "true")
+            {
+                TempData["Error"] = "You must be logged in to view this page";
+                return RedirectToAction("Login", "Account");
+            }
+			var record = db.MedicalRecord.Find(id);
+			return View(record);
+        }
+
+		[HttpPost]
+		public IActionResult EditMedicalRecord(MedicalRecord record)
+		{
+			if (ModelState.IsValid)
+			{
+				db.MedicalRecord.Update(record);
+				db.SaveChanges();
+
+				TempData["Success"] = "Medical Record Updated";
+				return RedirectToAction("ViewAppointment", new {id =  record.AppointmentId});
+			}
+			return View(record);
+		}
 
 		public IActionResult Messenger()
 		{

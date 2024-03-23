@@ -42,6 +42,8 @@ namespace PatientPortalSystem.Controllers
                     DoctorName = doctor.FirstName + " " + doctor.LastName,
                     Appointments = db.Appointment.Where(x => DateOnly.FromDateTime(x.AppointmentDate) == date && x.DoctorId == doctor.Id),
                 };
+                calendarToday.Appointments = calendarToday.Appointments.OrderBy(x => x.AppointmentDate);
+
                 return View(calendarToday);
             }
             CalendarViewModel calendarDay = new CalendarViewModel
@@ -51,7 +53,7 @@ namespace PatientPortalSystem.Controllers
                 DoctorName = doctor.FirstName + " " + doctor.LastName,
                 Appointments = db.Appointment.Where(x => DateOnly.FromDateTime(x.AppointmentDate) == date && x.DoctorId == doctor.Id),
             };
-
+            calendarDay.Appointments = calendarDay.Appointments.OrderBy(x => x.AppointmentDate);
             return View(calendarDay);
         }
 

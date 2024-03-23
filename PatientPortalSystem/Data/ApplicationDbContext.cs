@@ -41,5 +41,6 @@ namespace PatientPortalSystem.Data
 
 		public DbSet<Staff> Staff { get; set; }
 	    public DbSet<PatientPortalSystem.Models.ViewModels.AppointmentViewModel> AppointmentViewModel { get; set; } = default!;
+	    public DbSet<PatientPortalSystem.Models.ViewModels.MedicalStaffAppointmentViewModel> MedicalStaffAppointmentViewModel { get; set; } = default!;
 	}
 }
