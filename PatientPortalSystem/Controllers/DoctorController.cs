@@ -98,6 +98,7 @@ namespace PatientPortalSystem.Controllers
 			{
 				PatientId = appointment.PatientId,
 				AppointmentId = appointment.AppointmentId,
+				RecordDate = DateOnly.FromDateTime(appointment.AppointmentDate)
 			};
 
 			return View(medicalRecord);
@@ -141,6 +142,111 @@ namespace PatientPortalSystem.Controllers
 			}
 			return View(record);
 		}
+
+		public IActionResult Patients()
+		{
+            if (HttpContext.Session.GetString("IsDoctor") != "true")
+            {
+                TempData["Error"] = "You must be logged in to view this page";
+                return RedirectToAction("Login", "Account");
+            }
+			IEnumerable<Patient> patientList = db.Patient.Where(x => x.PhysicianId == HttpContext.Session.GetInt32("UserId"));
+			List<int> userId = new List<int>();
+			List<User> patientUsers = new List<User>();	
+
+			foreach(var patient in patientList)
+			{
+				userId.Add(patient.Id);
+			}
+
+			foreach(int id in userId)
+			{
+				var user = db.DefaultUser.Find(id);
+				patientUsers.Add(user);
+			}
+
+			return View(patientUsers);
+
+        }
+
+		public IActionResult ViewPatientFile(int? id)
+		{
+            if (HttpContext.Session.GetString("IsDoctor") != "true")
+            {
+                TempData["Error"] = "You must be logged in to view this page";
+                return RedirectToAction("Login", "Account");
+            }
+            //Gathering information from multiple tables to put in the ViewModel and pass to the View
+            var user = db.DefaultUser.Find(id);
+            var patient = db.Patient.FirstOrDefault(x => x.Id == id);
+            var insurance = db.Insurance.FirstOrDefault(x => x.Id == id);
+            var doctor = db.DefaultUser.Find(patient.PhysicianId);
+
+            PatientViewModel viewModel = new PatientViewModel //Patient ViewModel object is just an object which holds all information from User, Patient, and Insurance so all three tables can be updated and pulled from on the same page
+            {
+                //User Attributes
+                Id = user.Id,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                DOB = user.DOB,
+                Username = user.Username,
+                Password = user.Password,
+                Email = user.Email,
+                Address = user.Address,
+                Phone = user.Phone,
+                DateRegistered = user.DateRegistered,
+                SSN = user.SSN,
+                Role = user.Role,
+
+                //Patient Attributes
+                PatientId = patient.PatientId,
+                PhysicianId = patient.PhysicianId,
+                PhysicianName = doctor.FirstName + " " + doctor.LastName,
+                EmergencyContactFirstName = patient.EmergencyContactFirstName,
+                EmergencyContactLastName = patient.EmergencyContactLastName,
+                EmergencyContactAddress = patient.EmergencyContactAddress,
+                EmergencyContactPhone = patient.EmergencyContactPhone,
+                PreviousClinicName = patient.PreviousClinicName,
+                PreviousClinicAddress = patient.PreviousClinicAddress,
+                PreviousClinicPhone = patient.PreviousClinicPhone,
+                Allergies = patient.Allergies,
+                Medications = patient.Medications,
+                Conditions = patient.Conditions,
+                SendReminders = patient.SendReminders,
+            };
+
+            if (insurance != null)
+            {
+                viewModel.InsuranceId = insurance.InsuranceId;
+                viewModel.ProviderName = insurance.ProviderName;
+                viewModel.PolicyNumber = insurance.PolicyNumber;
+            }
+
+            return View(viewModel);
+        }
+
+		public IActionResult ViewMedicalHistory(int? id)
+		{
+            if (HttpContext.Session.GetString("IsDoctor") != "true")
+            {
+                TempData["Error"] = "You must be logged in to view this page";
+                return RedirectToAction("Login", "Account");
+            }
+			IEnumerable<MedicalRecord> records = db.MedicalRecord.Where(x => x.PatientId == id);
+			return View(records);
+        }
+
+		public IActionResult ViewPatientAppointments(int? id)
+		{
+            if (HttpContext.Session.GetString("IsDoctor") != "true")
+            {
+                TempData["Error"] = "You must be logged in to view this page";
+                return RedirectToAction("Login", "Account");
+            }
+			IEnumerable<Appointment> appointments = db.Appointment.Where(x => x.PatientId == id);
+			appointments = appointments.OrderByDescending(x => x.AppointmentDate);
+			return View(appointments);
+        }
 
 		public IActionResult Messenger()
 		{

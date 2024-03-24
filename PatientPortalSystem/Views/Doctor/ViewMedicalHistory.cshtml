@@ -1,0 +1,54 @@
+﻿@model IEnumerable<MedicalRecord>
+@{
+    ViewData["Title"] = "ViewMedicalHistory";
+    Layout = "~/Views/Shared/_DoctorLayout.cshtml";
+}
+
+<h1>Patient History</h1>
+
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h2 class="text-primary">Medical Records</h2>
+        </div>
+        <div class="col-6 text-center">
+        </div>
+        <div class="col-6 text-end">
+        </div>
+    </div>
+</div>
+
+<table class="table table-bordered table-striped" style="width:80%">
+    <thead>
+        <tr>
+            <th>
+                Date
+            </th>
+            <th>
+                Diagnosis
+            </th>
+            <th>
+                Doctor Comments
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var obj in Model)
+        {
+            <tr>
+                <td>
+                    @obj.RecordDate
+                </td>
+                <td>
+                    @obj.DoctorDiagnosis
+                </td>
+                <td>
+                    @obj.DoctorComments
+                </td>
+                <td>
+                    <a asp-controller="Doctor" asp-action="ViewAppointment" asp-route-id="@obj.AppointmentId" class="btn btn-secondary">View Appointment</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

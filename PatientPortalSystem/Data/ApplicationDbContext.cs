@@ -10,7 +10,6 @@ namespace PatientPortalSystem.Data
 		{
 
 		}
-
 		public DbSet<User> DefaultUser { get; set; }
 		
 		public DbSet<Appointment> Appointment { get; set; }
@@ -40,7 +39,5 @@ namespace PatientPortalSystem.Data
 		public DbSet<Prescription> Prescription { get; set; }
 
 		public DbSet<Staff> Staff { get; set; }
-	    public DbSet<PatientPortalSystem.Models.ViewModels.AppointmentViewModel> AppointmentViewModel { get; set; } = default!;
-	    public DbSet<PatientPortalSystem.Models.ViewModels.MedicalStaffAppointmentViewModel> MedicalStaffAppointmentViewModel { get; set; } = default!;
 	}
 }

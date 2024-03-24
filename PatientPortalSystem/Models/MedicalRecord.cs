@@ -12,6 +12,9 @@ namespace PatientPortalSystem.Models
 
         public int AppointmentId { get; set; }
 
+        [DisplayName("Record Date")]
+        public DateOnly RecordDate {  get; set; }
+
         [DisplayName("Doctor Diagnosis")]
         public string DoctorDiagnosis { get; set; }
 
