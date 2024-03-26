@@ -84,7 +84,7 @@ namespace PatientPortalSystem.Controllers
                 {
                     HttpContext.Session.SetString("IsReceptionist", "true");
 
-                    return RedirectToAction("Index", "Receptionist");
+                    return RedirectToAction("Requests", "Receptionist");
                 }
 
             }

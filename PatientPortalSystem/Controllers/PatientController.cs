@@ -5,6 +5,7 @@ using PatientPortalSystem.Data;
 using Microsoft.IdentityModel.Tokens;
 using PatientPortalSystem.Models.ViewModels;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Identity.Client;
 
 namespace PatientPortalSystem.Controllers
 {
@@ -513,7 +514,17 @@ namespace PatientPortalSystem.Controllers
             }
             
             return View(obj);
-            
+        }
+
+        public IActionResult Directory()
+        {
+            if (HttpContext.Session.GetString("IsVerified") != "true")
+            {
+                TempData["Error"] = "You must be logged in to view this page";
+                return RedirectToAction("Login", "Account");
+            }
+            IEnumerable<User> doctorList = db.DefaultUser.Where(x => x.Role == "Doctor");
+            return View(doctorList);
         }
 
         

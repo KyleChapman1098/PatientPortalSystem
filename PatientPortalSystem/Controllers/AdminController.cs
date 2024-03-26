@@ -97,5 +97,21 @@ namespace PatientPortalSystem.Controllers
             TempData["Error"] = "Account update failed";
             return View();
         }
+
+        public IActionResult DeleteStaffAccount(int id)
+        {
+            if (HttpContext.Session.GetString("IsAdmin") != "true")
+            {
+                TempData["Error"] = "You must be an admin to access this page";
+                return RedirectToAction("Login", "Account");
+            }
+
+            var staff = db.DefaultUser.Find(id);
+            db.DefaultUser.Remove(staff);
+            db.SaveChanges();
+
+            TempData["Success"] = "Staff Member Removed";
+            return RedirectToAction("Index");
+        }
     }
 }

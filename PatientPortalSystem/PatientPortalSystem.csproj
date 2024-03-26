@@ -7,6 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="DTOs\**" />
+    <Content Remove="DTOs\**" />
+    <EmbeddedResource Remove="DTOs\**" />
+    <None Remove="DTOs\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.3" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.3" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.3">
@@ -18,7 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="DTOs\" />
+    <None Include="wwwroot\Images\Doctors.jpg" />
   </ItemGroup>
 
 </Project>
