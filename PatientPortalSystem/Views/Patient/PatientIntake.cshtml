@@ -1,0 +1,96 @@
+﻿@model PatientPortalSystem.Models.Patient
+
+@{
+    ViewData["Title"] = "PatientIntake";
+    Layout = "~/Views/Shared/_PatientLayout.cshtml";
+}
+
+<h1>Patient Intake</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="PatientIntake">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <input type="hidden" asp-for="PhysicianId" class="form-control" />
+                <span asp-validation-for="PhysicianId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="hidden" asp-for="PatientId" class="form-control" />
+                <span asp-validation-for="PatientId" class="text-danger"></span>
+            </div>
+            <h4>Emergency Contact Info</h4>
+            <div class="form-group">
+                <label asp-for="EmergencyContactFirstName" class="control-label"></label>
+                <input asp-for="EmergencyContactFirstName" class="form-control" />
+                <span asp-validation-for="EmergencyContactFirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EmergencyContactLastName" class="control-label"></label>
+                <input asp-for="EmergencyContactLastName" class="form-control" />
+                <span asp-validation-for="EmergencyContactLastName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EmergencyContactPhone" class="control-label"></label>
+                <input asp-for="EmergencyContactPhone" class="form-control" />
+                <span asp-validation-for="EmergencyContactPhone" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EmergencyContactAddress" class="control-label"></label>
+                <input asp-for="EmergencyContactAddress" class="form-control" />
+                <span asp-validation-for="EmergencyContactAddress" class="text-danger"></span>
+            </div>
+            <br />
+            <h4>Previous Clinic</h4>
+            <div class="form-group">
+                <label asp-for="PreviousClinicName" class="control-label"></label>
+                <input asp-for="PreviousClinicName" class="form-control" />
+                <span asp-validation-for="PreviousClinicName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PreviousClinicPhone" class="control-label"></label>
+                <input asp-for="PreviousClinicPhone" class="form-control" />
+                <span asp-validation-for="PreviousClinicPhone" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PreviousClinicAddress" class="control-label"></label>
+                <input asp-for="PreviousClinicAddress" class="form-control" />
+                <span asp-validation-for="PreviousClinicAddress" class="text-danger"></span>
+            </div>
+            <br />
+            <h4>Medical History</h4>
+            <div class="form-group">
+                <label asp-for="Allergies" class="control-label"></label>
+                <textarea asp-for="Allergies" class="form-control"></textarea>
+                <span asp-validation-for="Allergies" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Medications" class="control-label"></label>
+                <textarea asp-for="Medications" class="form-control"></textarea>
+                <span asp-validation-for="Medications" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Conditions" class="control-label"></label>
+                <textarea asp-for="Conditions" class="form-control"></textarea>
+                <span asp-validation-for="Conditions" class="text-danger"></span>
+            </div>
+            <br />
+            <h4>Would you like to receive reminders about appointments?</h4>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="SendReminders" /> @Html.DisplayNameFor(model => model.SendReminders)
+                </label>
+            </div>
+            <br />
+            <div class="form-group">
+                <input type="submit" value="Submit" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

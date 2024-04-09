@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PatientPortalSystem.Data;
 using PatientPortalSystem.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace PatientPortalSystem.Controllers
 {
@@ -13,13 +14,13 @@ namespace PatientPortalSystem.Controllers
             db = context;
         }
 
-        public IActionResult Register()
+        public IActionResult Register() //Directs the user to the registration page
         {
             return View();
         }
 
         [HttpPost]
-        public IActionResult Register(User obj)
+        public IActionResult Register(User obj) //Receives the user input in the form of the User obj, checks that the user is not a duplicate and adds the new user to the db
         {
             if (db.DefaultUser.Any(x => x.Username == obj.Username))
             {
@@ -43,29 +44,59 @@ namespace PatientPortalSystem.Controllers
             return View();
         }
 
-        public IActionResult Login()
+        public IActionResult Login() //Directs the user to the login page
         {
             return View();
         }
 
         [HttpPost]
-        public IActionResult Login(User obj)
+        public IActionResult Login(User obj) //Receives the login info the user inputs and checks that the user exists. If so it directs them to the controller corresponding to their role
         {
-            if (db.DefaultUser.Any(x => x.Username == obj.Username && x.Password == obj.Password))
+            var user = db.DefaultUser.FirstOrDefault(x => x.Username == obj.Username && x.Password.Equals(obj.Password, StringComparison.Ordinal));
+            if (user != null)
             {
-                var user = db.DefaultUser.FirstOrDefault(x => x.Username == obj.Username);
+                HttpContext.Session.SetInt32("UserId", user.Id);
                 
                 if(user.Role == "Admin")
                 {
+                    HttpContext.Session.SetString("IsAdmin", "true");
                     return RedirectToAction("Index", "Admin");
                 }
                 if(user.Role == "Patient")
                 {
-                    return RedirectToAction("Index", "Patient");
+                    HttpContext.Session.SetString("IsVerified", "true");
+                    
+                    return RedirectToAction("Index", "Patient", user);
                 }
+                if(user.Role == "Doctor")
+                {
+                    HttpContext.Session.SetString("IsDoctor", "true");
+
+                    return RedirectToAction("Dashboard", "Doctor");
+                }
+                if(user.Role == "Nurse")
+                {
+                    HttpContext.Session.SetString("IsNurse", "true");
+
+                    return RedirectToAction("Index", "Nurse");
+                }
+                if (user.Role == "Receptionist")
+                {
+                    HttpContext.Session.SetString("IsReceptionist", "true");
+
+                    return RedirectToAction("Requests", "Receptionist");
+                }
+
             }
             TempData["Error"] = "Login failed";
             return View();
+        }
+
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Clear();
+            TempData["Success"] = "Logout Successful";
+            return RedirectToAction("Index", "Home");
         }
     }
 }

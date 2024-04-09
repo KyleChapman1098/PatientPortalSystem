@@ -1,0 +1,256 @@
+﻿@model PatientPortalSystem.Models.ViewModels.PatientViewModel
+
+@{
+    ViewData["Title"] = "ViewPatientFile";
+    Layout = "~/Views/Shared/_DoctorLayout.cshtml";
+}
+
+<h1>Patient Info</h1>
+
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-sm">
+            <h2 class="text-primary">Account Details</h2>
+        </div>
+        <div class="col-sm text-start" style="width:50%">
+            <a asp-controller="Doctor" asp-action="ViewMedicalHistory" asp-route-id="@Model.PatientId" class="btn btn-secondary">View Medical Records</a>
+            <a asp-controller="Doctor" asp-action="ViewPatientAppointments" asp-route-id="@Model.PatientId" class="btn btn-secondary">View Appointments</a>
+        </div>
+    </div>
+</div>
+
+<table class="table table-bordered table-striped" style="width:80%">
+    <tbody>
+        <tr>
+            <td width="50%">
+                @Html.DisplayNameFor(model => model.FirstName)
+            </td>
+            <td width="50%">
+                @Html.DisplayFor(model => model.FirstName)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.LastName)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.Username)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.Username)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.Email)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.Phone)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.Phone)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.Address)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.Address)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.DOB)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.DOB)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.SSN)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.SSN)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.DateRegistered)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.DateRegistered)
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h2 class="text-primary">Emergency Contact</h2>
+        </div>
+        <div class="col-6 text-center">
+        </div>
+        <div class="col-6 text-end">
+        </div>
+    </div>
+</div>
+
+<table class="table table-bordered table-striped" style="width:80%">
+    <tbody>
+        <tr>
+            <td width="50%">
+                @Html.DisplayNameFor(model => model.EmergencyContactFirstName)
+            </td>
+            <td width="50%">
+                @Html.DisplayFor(model => model.EmergencyContactFirstName)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.EmergencyContactLastName)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.EmergencyContactLastName)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.EmergencyContactPhone)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.EmergencyContactPhone)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.EmergencyContactAddress)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.EmergencyContactAddress)
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h2 class="text-primary">Current Doctor</h2>
+        </div>
+        <div class="col-6 text-center">
+        </div>
+        <div class="col-6 text-end">
+        </div>
+    </div>
+</div>
+
+<table class="table table-bordered table-striped" style="width:80%">
+    <tbody>
+        <tr>
+            <td width="50%">
+                @Html.DisplayNameFor(model => model.PhysicianName)
+            </td>
+            <td width="50%">
+                @Html.DisplayFor(model => model.PhysicianName)
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h2 class="text-primary">Medical History</h2>
+        </div>
+        <div class="col-6 text-center">
+        </div>
+        <div class="col-6 text-end">
+        </div>
+    </div>
+</div>
+
+<table class="table table-bordered table-striped" style="width:80%">
+    <tbody>
+        <tr>
+            <td width="50%">
+                @Html.DisplayNameFor(model => model.Allergies)
+            </td>
+            <td width="50%">
+                @Html.DisplayFor(model => model.Allergies)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.Medications)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.Medications)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.Conditions)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.Conditions)
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h2 class="text-primary">Insurance</h2>
+        </div>
+        <div class="col-6 text-center">
+        </div>
+        <div class="col-6 text-end">
+        </div>
+    </div>
+</div>
+
+<table class="table table-bordered table-striped" style="width:80%">
+    <tbody>
+        <tr>
+            <td width="50%">
+                @Html.DisplayNameFor(model => model.ProviderName)
+            </td>
+            <td width="50%">
+                @Html.DisplayFor(model => model.ProviderName)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.PolicyNumber)
+            </td>
+            <td>
+                @if (Model.ProviderName == null)
+                {
+
+                }
+                else
+                {
+                    @Html.DisplayFor(model => model.PolicyNumber)
+                }
+            </td>
+        </tr>
+    </tbody>
+</table>

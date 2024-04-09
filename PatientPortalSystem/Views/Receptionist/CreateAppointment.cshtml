@@ -1,0 +1,133 @@
+﻿@model PatientPortalSystem.Models.ViewModels.AppointmentViewModel
+
+@{
+    ViewData["Title"] = "CreateAppointment";
+    Layout = "~/Views/Shared/_ReceptionistLayout.cshtml";
+}
+
+<h1>Create Appointment</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="CreateAppointment">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <input type="hidden" asp-for="PatientId" class="form-control" />
+                <span asp-validation-for="PatientId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="hidden" asp-for="DoctorId" class="form-control" />
+                <span asp-validation-for="DoctorId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="hidden" asp-for="SchedulerId" class="form-control" />
+                <span asp-validation-for="SchedulerId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="hidden" asp-for="UserId" class="form-control" />
+                <span asp-validation-for="UserId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="hidden" asp-for="Username" class="form-control" />
+                <span asp-validation-for="Username" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="hidden" asp-for="UserEmail" class="form-control" />
+                <span asp-validation-for="UserEmail" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="hidden" asp-for="UserFirstName" class="form-control" />
+                <span asp-validation-for="UserFirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="hidden" asp-for="UserLastName" class="form-control" />
+                <span asp-validation-for="UserLastName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="hidden" asp-for="DoctorFirstName" class="form-control" />
+                <span asp-validation-for="DoctorFirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="hidden" asp-for="DoctorLastName" class="form-control" />
+                <span asp-validation-for="DoctorLastName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="hidden" asp-for="SchedulerFirstName" class="form-control" />
+                <span asp-validation-for="SchedulerFirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="hidden" asp-for="SchedulerLastName" class="form-control" />
+                <span asp-validation-for="SchedulerLastName" class="text-danger"></span>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm">
+                        <b>Patient Name</b>
+                    </div>
+                    <div class="col-sm">
+                        @Html.DisplayFor(model => model.UserFirstName)
+                        @Html.DisplayFor(model => model.UserLastName)
+                    </div>
+                <div class="row">
+                    <div class="col-sm">
+                        <b>Username</b>
+                    </div>
+                    <div class="col-sm">
+                        @Html.DisplayFor(model => model.Username)
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm">
+                            <b>Email</b>
+                    </div>
+                    <div class="col-sm">
+                            @Html.DisplayFor(model => model.UserEmail)
+                    </div>
+                </div>
+
+                <div class="row">
+                        <div class="col-sm">
+                            <b>Doctor Name</b>
+                        </div>
+                        <div class="col-sm">
+                            @Html.DisplayFor(model => model.DoctorFirstName) @Html.DisplayFor(model => model.DoctorLastName)
+                        </div>
+                </div>
+                    <div class="row">
+                        <div class="col-sm">
+                            <b>Scheduler Name</b>
+                        </div>
+                        <div class="col-sm">
+                            @Html.DisplayFor(model => model.SchedulerFirstName) @Html.DisplayFor(model => model.SchedulerLastName)
+                        </div>
+                </div>
+            </div>
+            <h4>Appointment Info</h4>
+            <div class="form-group">
+                <label asp-for="AppointmentDate" class="control-label"></label>
+                <input type="date" asp-for="AppointmentDate" class="form-control" />
+                <span asp-validation-for="AppointmentDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AppointmentTime" class="control-label"></label>
+                <input type="time" asp-for="AppointmentTime" class="form-control" />
+                <span asp-validation-for="AppointmentTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Reason" class="control-label"></label>
+                <textarea asp-for="Reason" class="form-control"></textarea>
+                <span asp-validation-for="Reason" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Calendar" asp-route-date="@Model.AppointmentDate" asp-route-doctorid="@Model.DoctorId">Back to Calendar</a>
+</div>
+

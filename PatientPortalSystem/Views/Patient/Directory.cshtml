@@ -1,0 +1,52 @@
+﻿@model IEnumerable<User>
+
+@{
+    ViewData["Title"] = "Directory";
+    Layout = "~/Views/Shared/_PatientLayout.cshtml";
+}
+
+<h1>Directory</h1>
+
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h2 class="text-primary">Doctor Contact Info</h2>
+        </div>
+        <div class="col-6 text-end">
+         
+        </div>
+    </div>
+</div>
+<br />
+
+<table class="table table-bordered table-striped" style="width:100%">
+    <thead>
+        <tr>
+            <th>
+                First Name
+            </th>
+            <th>
+                Last Name
+            </th>
+            <th>
+                Email
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var obj in Model)
+        {
+            <tr>
+                <td width="20%">
+                    @obj.FirstName
+                </td>
+                <td width="20%">
+                    @obj.LastName
+                </td>
+                <td width="20%">
+                    @obj.Email
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

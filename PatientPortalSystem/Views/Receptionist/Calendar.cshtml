@@ -1,0 +1,120 @@
+﻿@model PatientPortalSystem.Models.ViewModels.CalendarViewModel
+
+@{
+    ViewData["Title"] = "Calendar";
+    Layout = "~/Views/Shared/_ReceptionistLayout.cshtml";
+}
+
+<h1>Calendar</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Calendar">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Date" class="control-label"></label>
+                <input type="date" asp-for="Date" class="form-control" />
+                <span asp-validation-for="Date" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="hidden" asp-for="DoctorID" class="form-control" />
+                <span asp-validation-for="DoctorID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="hidden" asp-for="DoctorName" class="form-control" />
+                <span asp-validation-for="DoctorName" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group">
+                <input type="submit" value="Jump to Date" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+    <div class="col-md-4">
+
+    </div>
+    <div class="col-md-4 text-end">
+        <a asp-controller="Receptionist" asp-action="CreateAppointment" class="btn btn-primary">Create Appointment</a>
+    </div>
+</div>
+
+</br>
+<div class="container">
+    <div class="row">
+        <div class="col-sm text-center">
+            <h2 class="text-primary">@Model.DoctorName</h2>
+            <h2 class="text-primary">@Model.Date.DayOfWeek @Model.Date</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm text-primary">
+            <a asp-controller="Receptionist" asp-action="Calendar" asp-route-date="@Model.Date.AddDays(-30)" asp-route-doctorid="@Model.DoctorID" class="btn btn-secondary">Previous Month</a>
+        </div>
+        <div class="col-sm text-primary">
+            <a asp-controller="Receptionist" asp-action="Calendar" asp-route-date="@Model.Date.AddDays(-7)" asp-route-doctorid="@Model.DoctorID" class="btn btn-secondary">Previous Week</a>
+        </div>
+        <div class="col-sm text-primary">
+            <a asp-controller="Receptionist" asp-action="Calendar" asp-route-date="@Model.Date.AddDays(-1)" asp-route-doctorid="@Model.DoctorID" class="btn btn-secondary">Previous Day</a>
+        </div>
+        <div class="col-sm text-center">
+            
+        </div>
+        <div class="col-sm text-end">
+            <a asp-controller="Receptionist" asp-action="Calendar" asp-route-date="@Model.Date.AddDays(1)" asp-route-doctorid="@Model.DoctorID" class="btn btn-secondary">Next Day</a>
+        </div>
+        <div class="col-sm text-end">
+            <a asp-controller="Receptionist" asp-action="Calendar" asp-route-date="@Model.Date.AddDays(7)" asp-route-doctorid="@Model.DoctorID" class="btn btn-secondary">Next Week</a>
+        </div>
+        <div class="col-sm text-end">
+            <a asp-controller="Receptionist" asp-action="Calendar" asp-route-date="@Model.Date.AddDays(30)" asp-route-doctorid="@Model.DoctorID" class="btn btn-secondary">Next Month</a>
+        </div>
+    </div>
+</div>
+
+<table class="table table-bordered table-striped" style="width:100%">
+    <thead>
+        <tr>
+            <td>
+                Time
+            </td>
+            <td>
+                Patient
+            </td>
+            <td>
+                Doctor
+            </td>
+            <td>
+                Scheduler
+            </td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var obj in Model.Appointments)
+        {
+            <tr>
+                <td width="10%">
+                    @TimeOnly.FromDateTime(obj.AppointmentDate)
+                </td>
+                <td width="20%">
+                    @obj.PatientName
+                </td>
+                <td width="20%">
+                    @obj.DoctorName
+                </td>
+                <td width="20%">
+                    @obj.SchedulerName
+                </td>
+                <td width="11%">
+                    <a asp-controller="Receptionist" asp-action="UpdateAppointment" asp-route-id="@obj.AppointmentId" class="btn btn-primary">Update</a>
+                    <a asp-controller="Receptionist" asp-action="DeleteAppointment" asp-route-id="@obj.AppointmentId" class="btn btn-primary">Cancel</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div>
+    <a asp-action="SelectDoctor">Select Different Doctor</a>
+</div>
+

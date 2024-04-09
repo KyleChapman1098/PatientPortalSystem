@@ -1,0 +1,60 @@
+﻿@model IEnumerable<User>
+@{
+    ViewData["Title"] = "SelectDoctor";
+    Layout = "~/Views/Shared/_ReceptionistLayout.cshtml";
+}
+
+<h1>Select Schedule</h1>
+
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h2 class="text-primary">Doctor List</h2>
+        </div>
+    </div>
+</div>
+<br />
+
+<table class="table table-bordered table-striped" style="width:100%">
+    <thead>
+        <tr>
+            <th>
+                First Name
+            </th>
+            <th>
+                Last Name
+            </th>
+            <th>
+                Username
+            </th>
+            <th>
+                Role
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var obj in Model)
+        {
+            <tr>
+                <td width="20%">
+                    @obj.FirstName
+                </td>
+                <td width="20%">
+                    @obj.LastName
+                </td>
+                <td width="20%">
+                    @obj.Username
+                </td>
+                <td width="20%">
+                    @obj.Role
+                </td>
+                <td width="10%">
+                    <div class="w-75 btn-group" role="group">
+                        <a asp-controller="Receptionist" asp-action="Calendar" asp-route-doctorid="@obj.Id"
+                           class="btn btn-primary mx-2"> <i class="bi bi-pencil-square"></i>Select</a>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

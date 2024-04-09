@@ -1,0 +1,154 @@
+﻿@model PatientPortalSystem.Models.ViewModels.MedicalStaffAppointmentViewModel
+
+@{
+    ViewData["Title"] = "ViewAppointment";
+    Layout = "~/Views/Shared/_NurseLayout.cshtml";
+}
+
+<h1>View Appointment</h1>
+
+<div>
+    <hr />
+    <dl class="row">
+        <h4>Appointment Info</h4>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.PatientName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.PatientName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DoctorName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DoctorName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.SchedulerName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.SchedulerName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.AppointmentDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.AppointmentDate)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Reason)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Reason)
+        </dd>
+        <br />
+        <hr />
+
+        <div class="row">
+            <div class="col-sm">
+                <h4>Nurse's Notes</h4>
+            </div>
+            <div class="col-sm">
+                @if(Model.Age == 0)
+                {
+                    <a asp-controller="Nurse" asp-action="CreateAppointmentNotes" asp-route-id="@Model.AppointmentId" class="btn btn-primary">Add Note</a>
+                }
+            </div>
+        </div>
+        <table class="table table-bordered table-striped" style="width:50%">
+            <tbody>
+                <tr>
+                    <td width="50%">
+                        Age
+                    </td>
+                    <td width="50%">
+                        @Html.DisplayFor(model => model.Age)
+                    </td>
+                </tr>
+                <tr>
+                    <td width="50%">
+                        Height
+                    </td>
+                    <td width="50%">
+                        @Html.DisplayFor(model => model.Height)
+                    </td>
+                </tr>
+                <tr>
+                    <td width="50%">
+                        Weight
+                    </td>
+                    <td width="50%">
+                        @Html.DisplayFor(model => model.Weight)
+                    </td>
+                </tr>
+                <tr>
+                    <td width="50%">
+                        Heart Rate
+                    </td>
+                    <td width="50%">
+                        @Html.DisplayFor(model => model.HeartRate)
+                    </td>
+                </tr>
+                <tr>
+                    <td width="50%">
+                        Blood Pressure
+                    </td>
+                    <td width="50%">
+                        @Html.DisplayFor(model => model.BloodPressure)
+                    </td>
+                </tr>
+                <tr>
+                    <td width="50%">
+                        Oxygen
+                    </td>
+                    <td width="50%">
+                        @Html.DisplayFor(model => model.Oxygen)
+                    </td>
+                </tr>
+                <tr>
+                    <td width="50%">
+                        Nurse Comments
+                    </td>
+                    <td width="50%">
+                        @Html.DisplayFor(model => model.NurseComments)
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <br />
+        <hr />
+
+        <div class="container">
+            <div class="row" style="width: 70%">
+                <div class="col-sm">
+                    <h4>Medical Record</h4>
+                </div>
+            </div>
+        </div>
+
+        <table class="table table-bordered table-striped" style="width:70%">
+            <tbody>
+                <tr>
+                    <td width="20%">
+                        Doctor Diagnosis
+                    </td>
+                    <td width="80%">
+                        @Html.DisplayFor(model => model.DoctorDiagnosis)
+                    </td>
+                </tr>
+                <tr>
+                    <td width="20%">
+                        Doctor Comments
+                    </td>
+                    <td width="80%">
+                        @Html.DisplayFor(model => model.DoctorComments)
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </dl>
+</div>
+<div>
+    <a asp-action="Index">Back to Dashboard</a>
+</div>
+

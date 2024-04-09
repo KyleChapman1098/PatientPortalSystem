@@ -1,0 +1,65 @@
+﻿@model PatientPortalSystem.Models.Request
+
+@{
+    ViewData["Title"] = "ViewRequest";
+    Layout = "~/Views/Shared/_ReceptionistLayout.cshtml";
+}
+
+<h1>View Request</h1>
+
+<div>
+    <hr />
+    <dl class="row">
+        <h4>Patient</h4>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.PatientUsername)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.PatientUsername)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.PatientName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.PatientName)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.PatientPhone)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.PatientPhone)
+        </dd>
+        <br /><br />    
+        <h4>Doctor</h4>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DoctorName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DoctorName)
+        </dd>
+        <br /><br />
+        <h4>Request Info</h4>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.RequestType)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.RequestType)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Message)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Message)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.MessageTime)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.MessageTime)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Calendar" asp-route-doctorid="@Model.DoctorId" class="btn btn-primary">View Doctor Schedule</a>
+    <a asp-action="CloseRequest" asp-route-id="@Model.RequestId" class="btn btn-primary">Close Request</a>
+</div>

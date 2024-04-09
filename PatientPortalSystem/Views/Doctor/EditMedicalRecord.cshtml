@@ -1,0 +1,48 @@
+﻿@model PatientPortalSystem.Models.MedicalRecord
+
+@{
+    ViewData["Title"] = "EditMedicalRecord";
+    Layout = "~/Views/Shared/_DoctorLayout.cshtml";
+}
+
+<h1>Update Medical Record</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="EditMedicalRecord">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="RecordId" />
+            <div class="form-group">
+                <input type="hidden" asp-for="PatientId" class="form-control" />
+                <span asp-validation-for="PatientId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="hidden" asp-for="AppointmentId" class="form-control" />
+                <span asp-validation-for="AppointmentId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="hidden" asp-for="RecordDate" class="form-control" />
+                <span asp-validation-for="RecordDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DoctorDiagnosis" class="control-label"></label>
+                <textarea asp-for="DoctorDiagnosis" class="form-control" rows="5"></textarea>
+                <span asp-validation-for="DoctorDiagnosis" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DoctorComments" class="control-label"></label>
+                <textarea asp-for="DoctorComments" class="form-control" rows="20"></textarea>
+                <span asp-validation-for="DoctorComments" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Update" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="ViewAppointment" asp-route-id="@Model.AppointmentId">Back to Appointment</a>
+</div>
+
